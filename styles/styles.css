@@ -1,9 +1,46 @@
 
 
+/* GENERAL STYLING */
+
+.coloring-nav {
+    background-color: #3f87a6;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 30px 0;
+    text-align: center;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #fff;
+    margin: 0 10px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.social-media img {
+    width: 30px;
+    margin: 0 10px;
+}
+
+span {
+    font-size: 40px;
+    text-shadow: -1px -1px 0 aqua,
+    1px -1px 0 blue,
+    -1px 1px 0 burlywood,
+    1px 1px 0 coral;
+}
+
 /* FRONT PAGE */
 
 #main-section {
     text-align: center;
+    background: linear-gradient(#3f87a6, #ebf8e1, #f69d3c);
 }
 
 #main-museum-div {
@@ -64,46 +101,102 @@
     visibility: visible
 }
 
-span {}
+
+
 
 /* HISTORICAL PERSON PAGE */
 
 #overview-of-persons-container {
+    padding-top: 45px;
+    background-color: beige;
     display: flex;
     flex-direction: column;
-    align-items: center
+    align-items: center;
+}
+
+#overview-of-persons-container #welcome-text {
+    text-align: justify;
+    text-align-last: center;
 }
 
 .carousel-item {
     height: 32rem;
     width: 50vw;
-    background-color: aliceblue
+    transition: transform 0.6s ease, opacity 0.6s ease;
 }
 
+.carousel-inner {
+    overflow: hidden;
+}
+
+.selected-person {
+    background-color: lightgray;
+}
+
+button:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+#persons-action-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#notification-container {
+    display: none;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 100;
+    background-color: deepskyblue;
+    color: purple;
+    padding: 10px;
+    border-radius: 5px;
+}
 
 /* ROOM VIEW PAGE */
 
-body .room-view {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    perspective: 1px;
-    overflow-x: hidden;
+#category-of-persons-of-history {
+    background-color: beige;
 }
 
-#category-of-persons-of-history {
-    background-attachment: fixed;
-    background-size: cover;
-    background-position: center;
+#persons-on-display {
+    background-color: beige;
+    display: flex;
+    flex-direction: row;
+}
+
+#message-container {
+    font-size: 25px;
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#message-container a {
+    color: blue;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#message-container a:hover {
+    text-decoration: underline;
 }
 
 .person-card {
+    flex-grow: 1;
+    background-color: beige;
     position: relative;
-    width: 400px;
-    height: 600px;
+    max-width: 400px;
+    height: 550px;
     perspective: 1000px;
     transform-style: preserve-3d;
+    transition: width 0.3s ease;
+}
+
+.person-card:hover {
+    width: 450px;
 }
 
 .front, .back {
@@ -133,8 +226,7 @@ body .room-view {
 }
 
 .person-image {
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
     object-fit: cover;
     transition: opacity 0.5s ease;
 }
@@ -152,6 +244,7 @@ body .room-view {
     justify-content: center;
     align-items: center;
     transition: opacity 0.5s ease;
+    overflow: hidden;
 }
 
 .person-card:hover .person-overlay {
@@ -159,6 +252,7 @@ body .room-view {
 }
 
 .person-info {
+    width: 100%;
     color: white;
     text-align: center;
     opacity: 0;
@@ -174,65 +268,17 @@ body .room-view {
     cursor: pointer;
 }
 
-.person-details {
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    background: rgba(0, 0, 0, 0.8);
-    position: absolute;
-    overflow: visible;
-}
-
 .full-bio {
+    display: none;
+    position: absolute;
+    margin-top: 5px;
+    text-align: center;
     font-style: italic;
     font-size: 14px;
-    position: absolute;
     color: white;
-    left: 0;
     width: 100%;
-    padding: 10px;
-    top: 100%;
-    animation: scrollUp var(--bio-animation-duration) forwards;
-    animation-timing-function: linear;
+    padding: 5px;
 }
-
-@keyframes scrollUp {
-    to {
-        top: 25%;
-    }
-}
-
-.person-details.show-full-bio .full-bio {
-    animation-play-state: running
-}
-
-.person-card.click-indicator {
-    cursor: pointer;
-    border: 2px solid transparent;
-    border-image: linear-gradient(
-      to right,
-      rgba(255, 255, 255, 0.2),
-      rgba(255, 255, 255, 1),
-      rgba(255, 255, 255, 0.2)
-    ) 1;
-    border-image-slice: 1;
-    background-clip: padding-box;
-  
-    animation: glowingBorder 3s linear infinite;
-  }
-  
-  @keyframes glowingBorder {
-    0% {
-      border-image-source: linear-gradient(to right, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.2));
-    }
-    50% {
-      border-image-source: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 1));
-    }
-    100% {
-      border-image-source: linear-gradient(to right, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.2));
-    }
-  }
 
 .notable-work {
     position: absolute;
@@ -248,6 +294,7 @@ body .room-view {
     text-align: center;
     transition: transform 0.6s ease-in-out;
     backface-visibility: hidden;
+    cursor: pointer;
 }
 
 .notable-work img {

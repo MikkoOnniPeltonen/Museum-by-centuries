@@ -18,12 +18,14 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log(personsOfTheCentury)
 
     let personsOnDisplay = document.querySelector('#persons-on-display')
-    
+    let messageContainer = document.querySelector('#message-container')
+
+    let messageIfEmpty = `<p>You haven't chosen anyone from this century yet, please <a href="../historical-persons/historicalPersonsPage.html">give it a go!</a></p>`
+
     if (personsOfTheCentury.length === 0) {
-
+        messageContainer.innerHTML = messageIfEmpty
+        messageContainer.style.display = 'block'
     }
-
-    
 
     personsOfTheCentury.forEach(person => {
 
@@ -56,8 +58,8 @@ document.addEventListener('DOMContentLoaded', function () {
         lifespanElement.innerText = person.lifespan
         questionElement.innerText = 'Did you know that -'
 
-        let personDetailsAsBio = document.createElement('div')
-        personDetailsAsBio.className = 'person-details'
+        // let personDetailsAsBio = document.createElement('div')
+        // personDetailsAsBio.className = 'person-details'
 
         let personFullBio = document.createElement('p')
         personFullBio.className = 'card-text full-bio'
@@ -85,13 +87,15 @@ document.addEventListener('DOMContentLoaded', function () {
         personInfoDiv.appendChild(nameElement)
         personInfoDiv.appendChild(lifespanElement)
         personInfoDiv.appendChild(questionElement)
+        personInfoDiv.appendChild(personFullBio)
 
-        personDetailsAsBio.appendChild(personFullBio)
+        // personDetailsAsBio.appendChild(personFullBio)
 
         personOverlayFront.appendChild(personInfoDiv)
 
         personFrontBodyDiv.appendChild(pictureElementFront)
         personFrontBodyDiv.appendChild(personOverlayFront)
+        // personFrontBodyDiv.appendChild(personDetailsAsBio)
 
         personNotableWork.appendChild(notableWorkImageBack)
         personNotableWork.appendChild(notableWorkDescription)
@@ -99,98 +103,47 @@ document.addEventListener('DOMContentLoaded', function () {
 
         selectedPersonDiv.appendChild(personFrontBodyDiv)
         selectedPersonDiv.appendChild(backOfThePersonCard)
-        selectedPersonDiv.appendChild(personDetailsAsBio)
 
         personsOnDisplay.appendChild(selectedPersonDiv)
+
 
         // ADDING EVENTS TO THE PERSON CARDS
 
 
-        let isBioFullyShown = false
         let isCardFlipped = false
-        let resetBioTimeout
+        let isBioShown = false
 
         questionElement.addEventListener('mouseenter', () => {
-            personDetailsAsBio.classList.add('show-full-bio')
-            fadeOutInfoDiv()
-
+            personFullBio.style.display = 'block'
+            isBioShown = true
         })
 
-        selectedPersonDiv.addEventListener('mouseenter', () => {
-            if (!isBioFullyShown) {
-                personFullBio.style.animationPlayState = 'running'
-
-                clearTimeout(resetBioTimeout)
+        questionElement.addEventListener('mouseleave', () => {
+            personFullBio.style.display = 'none'
+            if (isBioShown && !isCardFlipped) {
+                questionElement.innerText = 'Click to find out more'
+                questionElement.addEventListener('click', handleCardClick)
             }
         })
 
         selectedPersonDiv.addEventListener('mouseleave', () => {
-            if(!isBioFullyShown) {
-                personFullBio.style.animationPlayState = 'paused'
-
-                resetBioTimeout = setTimeout(() => {
-                    resetBio()
-                }, 5000)
-            }
+                selectedPersonDiv.classList.remove('show-back')
+                isCardFlipped = false
+                isBioShown = false
+                questionElement.innerText = 'Did you know that -'
         })
-
-        personFullBio.addEventListener('animationend', () => {
-            isBioFullyShown = true
-            if (!isCardFlipped) {
-                addClickHandler()
-            }
-        })
-
-        selectedPersonDiv.addEventListener('mouseleave', () => {
-            if (!isBioFullyShown || !isCardFlipped) {
-                resetBio()
-                if (isCardFlipped) {
-                    selectedPersonDiv.classList.remove('show-back')
-                    isCardFlipped = false
-                }
-            }
-
-        })
-
-        function addClickHandler() {
-
-            setTimeout(() => {
-                selectedPersonDiv.addEventListener('click', handleCardClick, { once: true })
-                selectedPersonDiv.classList.add('click-indicator')
-            }, 500)
-        }
 
         function handleCardClick() {
             isCardFlipped = true
             selectedPersonDiv.classList.add('show-back')
         }
 
-        function resetBio() {
-            personDetailsAsBio.classList.remove('show-full-bio')
-            personFullBio.style.animation = ''
-            personFullBio.getBoundingClientRect()
-            personFullBio.style.animation = null
-            isBioFullyShown = false
-            selectedPersonDiv.classList.remove('click-indicator')
-        }
-
-        function fadeOutInfoDiv() {
-
-            let bioRect = personFullBio.getBoundingClientRect()
-            let infoRect = personInfoDiv.getBoundingClientRect()
-
-            if (bioRect.top < infoRect.bottom) {
-                let overlap = bioRect.bottom - infoRect.top
-                let infoHeight = infoRect.height
-                
-                let percentage = (overlap / infoHeight) * 100
-                personInfoDiv.style.clipPath = `inset(${percentage}% 0 0 0)`
-            }
-        }
-
         backOfThePersonCard.addEventListener('click', () => {
             selectedPersonDiv.classList.remove('show-back')
             isCardFlipped = false
+            personFullBio.style.display = 'none'
+            isBioShown = false
+            questionElement.innerText = 'Did you know that -'
         })
 
     })

@@ -3,7 +3,13 @@ import { historicalPersons, Room } from "../roomClass.js"
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    let selectedCentury = JSON.parse(localStorage.getItem('selectedCentury'))
+    let selectedCentury = '1600s'
+
+    try {
+        selectedCentury = JSON.parse(localStorage.getItem('selectedCentury')) || selectedCentury
+    } catch (error) {
+        console.error('Error parsing selectedCentury:', error)
+    }
 
 
     let room = new Room(historicalPersons)
@@ -13,32 +19,47 @@ document.addEventListener('DOMContentLoaded', function () {
     let displayingCentury = document.querySelector('#changing-century-text')
     let changingCenturyText = ''
 
-    if (room.century === '1600s') {
-        changingCenturyText = '17th'
-    }
-    else if (room.century === '1700s') {
-        changingCenturyText = '18th'
-    }
-    else if (room.century === '1800s') {
-        changingCenturyText = '19th'
-    }
-    else if (room.century === '1900s') {
-        changingCenturyText = '20th'
+    let centuryNumber = parseInt(room.century);
+    if (!isNaN(centuryNumber)) {
+        changingCenturyText = (centuryNumber + 100).toString().slice(0, -2) + 'th';
     }
 
-    displayingCentury.textContent = ` ${changingCenturyText}`
+    displayingCentury.innerHTML = `<a href="../room-view/roomViewPage.html">${changingCenturyText}</a>`
 
-    let addBtn = document.querySelector('#add-person-btn')
-    let removeBtn = document.querySelector('#remove-person-btn')
-    let clearBtn = document.querySelector('#clear-persons-btn')
+    
 
-    function updateButtonStates() {
-        let activePersonName = document.querySelector('.carousel-item.active .carousel-caption h5'.textContent)
-        let isPersonSelected = room.selectedPersons.some(person => person.name === activePersonName)
+    let notificationContainer = document.querySelector('#notification-container')
+    let notificationMessage = document.querySelector('#notification-message')
 
-        addBtn.disabled = isPersonSelected || room.selectedPersons.length === personsOfHistory.length
-        removeBtn.disabled = isPersonSelected
-        clearBtn.disabled = room.selectedPersons.length === 0
+    function showNotification(message) {
+        notificationMessage.textContent = message
+        notificationContainer.style.display = 'block'
+        setTimeout(() => {
+            notificationContainer.style.display = 'none'
+        }, 3000)
+    }
+
+    let addBtn = document.getElementById('add-person-btn')
+    let removeBtn = document.getElementById('remove-person-btn')
+    let clearBtn = document.getElementById('clear-persons-btn')
+
+    // UPDATE UI TO KNOW WHICH PERSON IS ALREADY SELECTED AND WHO IS NOT
+    // ADD, REMOVE AND CLEAR BUTTONS ARE DISABLED ACCORDINGLY
+
+    function updateUI(personName = null) {
+        let activePersonName = personName || (document.querySelector('.carousel-item.active .carousel-caption h5')?.textContent || '')
+        let activeSlideImage = document.querySelector(`.carousel-item img[alt="${activePersonName}"]`)
+
+        if (activeSlideImage) {
+            let activeSlide = activeSlideImage.parentElement
+            let isPersonSelected = room.selectedPersons.some(person => person.name === activePersonName)
+
+            addBtn.disabled = isPersonSelected || room.selectedPersons.length === personsOfHistory.length
+            removeBtn.disabled = !isPersonSelected
+            clearBtn.disabled = room.selectedPersons.length === 0
+
+            activeSlide.classList.toggle('selected-person', isPersonSelected)
+        }
     }
 
     let carouselIndicators = document.querySelector('.carousel-indicators')
@@ -92,34 +113,31 @@ document.addEventListener('DOMContentLoaded', function () {
     })
 
 
-    carousel.addEventListener('slide.bs.carousel', (event) => {
-        let indicators = carouselIndicators.querySelectorAll('button')
-        indicators.forEach(indicator => indicator.classList.remove('active'))
-        indicators[event.to].classList.add('active')
-        updateButtonStates()
-    });
+    carousel.addEventListener('slide.bs.carousel', () => updateUI())
 
     // EVENT LISTENERS TO BUTTONS
-    addBtn.addEventListener('click', () => {
+    addBtn.addEventListener('click', () => { 
         let activePersonName = document.querySelector('.carousel-item.active .carousel-caption h5').textContent
         let activePerson = personsOfHistory.find(person => person.name === activePersonName)
         room.selectPerson(activePerson)
-        updateButtonStates()
+        updateUI(activePersonName)
     })
 
     removeBtn.addEventListener('click', () => {
         let activePersonName = document.querySelector('.carousel-item.active .carousel-caption h5').textContent
         let activePerson = personsOfHistory.find(person => person.name === activePersonName)
         room.removeSelectedPerson(activePerson)
-        updateButtonStates()
+        updateUI(activePersonName)
     })
 
     clearBtn.addEventListener('click', () => {
-        room.clearSelectedPersons()
-        updateButtonStates()
+        let confirmClear = confirm('You are about to empty all selected persons, do you wish to continue?')
+        if (confirmClear) {
+            room.clearSelectedPersons()
+            updateUI()
+            showNotification('All selected persons have been cleared.')
+        }
     })
-    updateButtonStates()
-
-    let myCarousel = new bootstrap.Carousel(carousel)
+    updateUI()
 
 })

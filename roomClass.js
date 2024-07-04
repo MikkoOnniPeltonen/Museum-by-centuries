@@ -71,7 +71,7 @@ let historicalPersons = [
         century: `1700s`,
         name: `Wang Zhenyi`,
         lifespan: `(1768-1797)`,
-        image: `../images/portraits/Wang_Zhenyi.jpeg`,
+        image: `../images/portraits/Wang_Zhenyi.jpg`,
         bio: `As Chinese astronomer, mathematician, and poet, Wang Zhenyi made significant contributions to the understanding of lunar and solar eclipses. She also wrote influential works on mathematics and poetry.`,
         notableWork: `../images/notableWorks/Wang_Zhenyi_astronomy.jpeg`,
         descriptionOfWork: `Her most notable work, "The Simple Principles of Calculation," simplified complex mathematical concepts for a wider audience.`
@@ -127,7 +127,7 @@ let historicalPersons = [
         lifespan: `(1836-1896)`,
         image: `../images/portraits/Liu_Mingchuan.jpg`,
         bio: `He was a prominent Chinese general and statesman during the late Qing dynasty. He is best known for his efforts to modernize China's military and infrastructure, particularly in Taiwan, where he served as governor. His significant accomplishments included reform of the administrative structure of Taiwan, improving efficiency and governance. Liu Mingchuan not only established schools to promote education and literacy, emphasizing the importance of modern knowledge and technical skills, but also encouraged the cultivation of cash crops such as tea and sugar, which became significant exports for Taiwan.`,
-        notableWork: `../images/notableWorks/Liu_Mingchuan_taiwan.webp`,
+        notableWork: `../images/notableWorks/Liu_Mingchuan_taiwan.jpg`,
         descriptionOfWork: `His tenure as governor left a lasting impact on Taiwan, laying the groundwork for its modernization and development.`
     },
     {
@@ -153,16 +153,16 @@ let historicalPersons = [
         name: `Lech Wałęsa`,
         lifespan: `(1943-)`,
         image: `../images/portraits/Lech_Walesa.jpg`,
-        bio: `Lech Wałęsa is a prominent figure in modern European history, celebrated for his role as a trade union leader and politician. He began his career as an electrician and became active in labor movements in the 1970s. He rose to prominence during the Gdansk shipyard strikes of 1980, where he emerged as a leader advocating for workers' rights and social justice. Wałęsa gained international prominence as the charismatic leader of the Solidarity movement, which played a pivotal role in the downfall of communism in Poland and across Eastern Europe. Wałęsa played a crucial role in the subsequent transition to democracy in Poland and was elected as the country's first democratically elected president in 1990.`,
+        bio: `Lech Wałęsa is a prominent figure in modern European history, celebrated for his role as a trade union leader and politician. He began his career as an electrician, but rose to prominence during the Gdansk shipyard strikes of 1980, advocating for workers' rights and social justice. Wałęsa gained international prominence as the charismatic leader of the Solidarity movement, which played a pivotal role in the downfall of communism in Poland and across Eastern Europe.`,
         notableWork: `../images/notableWorks/Lech_Walesa_rally.jpeg`,
-        descriptionOfWork: `His life story reflects a commitment to the values of solidarity, democracy, and the peaceful pursuit of political change, making him a symbol of resistance against authoritarianism and an inspiration to people around the world.`
+        descriptionOfWork: `Wałęsa played a crucial role in the subsequent transition to democracy in Poland and was elected as the country's first democratically elected president in 1990. His life story reflects a commitment to the values of solidarity, democracy, and the peaceful pursuit of political change, making him a symbol of resistance against authoritarianism and an inspiration to people around the world.`
     },
     {
         century: `1900s`,
         name: `Franklin D. Roosevelt`,
         lifespan: `(1882-1945)`,
         image: `../images/portraits/Franklin_D._Roosevelt.jpg`,
-        bio: `Roosevelt, commonly known as FDR was the 32nd President of the United States, serving from 1933 until his death in 1945. He is the only U.S. president to have been elected to four terms in office. He is most known for his New Deal policies, a series of programs, public work projects, financial reforms, and regulations enacted in response to the Great Depression. These programs aimed to provide relief, recovery, and reform to the American economy and society. FDR led the United States through most of World War II, making the decision to enter the war after the Japanese attack on Pearl Harbor in 1941.`,
+        bio: `Roosevelt, commonly known as FDR was the 32nd President of the United States, serving from 1933 until his death in 1945. He is the only U.S. president to have been elected to four terms in office. He is most known for his New Deal policies, a series of programs aimed to provide relief, recovery, and reform to the American economy and society in response to the Great Depression. FDR led the United States through most of World War II, making the decision to enter the war after the Japanese attack on Pearl Harbor in 1941.`,
         notableWork: `../images/notableWorks/Franklin_D._Roosevelt_act.jpeg`,
         descriptionOfWork: `Roosevelt put in action many landmark legislations including Social Security Act (1935), establishing a system of social insurance, providing benefits for the elderly, unemployed, and disabled. Fair Labor Standards Act (1938) continued expanding the role of federal government in providing a safety net for vulnerable citizens by improving working conditions and wages for many Americans.`
     },
@@ -180,7 +180,7 @@ let historicalPersons = [
         name: `Mahatma Gandhi`,
         lifespan: `(1869-1948)`,
         image: `../images/portraits/Mahatma_Gandhi.jpg`,
-        bio: `Gandhi is revered as the father of the Indian independence movement and a global symbol of nonviolent resistance as his life and philosophy continues to inspire generations seeking justice, equality, and peace. Gandhi emerged as a leader in the struggle for Indian independence from British colonial rule. He promoted nonviolent civil disobedience as a potent weapon against oppression, urging Indians to resist British rule through peaceful protests, boycotts of British goods, and acts of non-cooperation. His efforts bore fruit when India gained independence in 1947, marking a triumph of his vision for a united, democratic nation.`,
+        bio: `Gandhi is revered as the father of the Indian independence movement and a global symbol of nonviolent resistance as his life and philosophy continues to inspire generations seeking justice, equality, and peace. Gandhi emerged as a leader in the struggle for Indian independence from British colonial rule. He promoted nonviolent civil disobedience as a potent weapon against oppression. His efforts bore fruit when India gained independence in 1947, marking a triumph of his vision for a united, democratic nation.`,
         notableWork: `../images/notableWorks/Mahatma_Gandhi_march.jpeg`,
         descriptionOfWork: `Gandhi's leadership during pivotal campaigns such as the Salt March of 1930, where he led thousands on a 387 kilometres journey to the Arabian Sea to protest against British salt taxes, brought international attention to India's quest for freedom. He emphasized the power of truth and moral courage in confronting injustice, inspiring movements for civil rights and social change worldwide.`
     }
